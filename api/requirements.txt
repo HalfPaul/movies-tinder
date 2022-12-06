@@ -1,0 +1,4 @@
+fastai
+uvicorn
+torch  
+pandas
