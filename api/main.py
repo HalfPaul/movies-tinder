@@ -35,6 +35,14 @@ def getRandomMovie():
 @app.get("/{query}")
 def reccommendMovies(query: str):
     movie_idxs = query.split("_")
+    embedding = torch.zeros(100)
     for idx in movie_idxs:
-        break
+        embedding += movie_embedding[int(idx)]
+        
+    embedding = embedding / len(movie_idxs)
+    distances = nn.CosineSimilarity(dim=1)(movie_embedding, embedding)
 
+    preds_idxs = distances.argsort(descending=True)[:5]
+    preds = preds_idxs.apply(lambda x: movie_indices[x-1])
+
+    return {"movies": preds}
