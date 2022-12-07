@@ -38,11 +38,12 @@ def reccommendMovies(query: str):
     embedding = torch.zeros(100)
     for idx in movie_idxs:
         embedding += movie_embedding[int(idx)]
-        
+
     embedding = embedding / len(movie_idxs)
     distances = nn.CosineSimilarity(dim=1)(movie_embedding, embedding)
 
-    preds_idxs = distances.argsort(descending=True)[:5]
-    preds = preds_idxs.apply(lambda x: movie_indices[x-1])
+    preds_idxs = distances.argsort(descending=True)[:8]
+    preds_idxs_filtered = [x for x in preds_idxs if str(x.item()) not in movie_idxs]
+    preds = [movie_indices["title"][int(x.item()) - 1] for x in list(preds_idxs_filtered)]
 
     return {"movies": preds}
