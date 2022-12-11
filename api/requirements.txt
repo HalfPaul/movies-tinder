@@ -1,4 +1,5 @@
 fastai
+fastapi
 uvicorn
 torch  
 pandas

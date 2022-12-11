@@ -21,18 +21,16 @@ export default function Card() {
   const [results, setResults] = useState<string[]>([])
 
   const getRandomMovie = () => {
-    axios
-      .get("http://127.0.0.1:8000/getRandomMovie")
-      .then((res) => {
-        setCurrentMovie(res.data.title);
-        setCurrentIdx(res.data.movie_idx);
-      });
+    axios.get("http://localhost:8000/getRandomMovie").then((res) => {
+      setCurrentMovie(res.data.title);
+      setCurrentIdx(res.data.movie_idx);
+    });
   }
   const filmWasLiked = async () => {
     
     if (likedIdxs.length === 5) {
       const query = likedIdxs.join("_")
-      const response = await axios.get(`http://127.0.0.1:8000/${query}`);
+      const response = await axios.get(`http://localhost:8000/${query}`);
       setResults(response.data.movies);
       
     } else {
