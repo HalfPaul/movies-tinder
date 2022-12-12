@@ -13,6 +13,8 @@ import { BsFillSkipForwardCircleFill } from "react-icons/bs"
 export default function Card() {
   const router = useRouter();
 
+  const api_url = process.env.API_URL ? process.env.API_URL : "http://localhost:8000/"
+
   
   const [likedIdxs, setLikedIdxs] = useState<string[]>([]);
   const [currentMovie, setCurrentMovie] = useState("");
@@ -21,7 +23,7 @@ export default function Card() {
   const [results, setResults] = useState<string[]>([])
 
   const getRandomMovie = () => {
-    axios.get("http://localhost:8000/getRandomMovie").then((res) => {
+    axios.get(api_url + "getRandomMovie").then((res) => {
       setCurrentMovie(res.data.title);
       setCurrentIdx(res.data.movie_idx);
     });
@@ -30,7 +32,7 @@ export default function Card() {
     
     if (likedIdxs.length === 5) {
       const query = likedIdxs.join("_")
-      const response = await axios.get(`http://localhost:8000/${query}`);
+      const response = await axios.get(api_url + `${query}`);
       setResults(response.data.movies);
       
     } else {
@@ -43,9 +45,6 @@ export default function Card() {
   useEffect(() => {
     getRandomMovie();
   }, [likedIdxs]);
-  useEffect(() => {
-    console.log(results);
-  }, [results])
   return (
     <div>
       {results.length === 0 ? (
