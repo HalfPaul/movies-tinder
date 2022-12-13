@@ -13,7 +13,9 @@ import { BsFillSkipForwardCircleFill } from "react-icons/bs"
 export default function Card() {
   const router = useRouter();
 
-  const api_url = process.env.API_URL ? process.env.API_URL : "http://localhost:8000/"
+  const api_url = process.env.NEXT_PUBLIC_API_URL
+    ? process.env.NEXT_PUBLIC_API_URL
+    : "http://localhost:8000/";
 
   
   const [likedIdxs, setLikedIdxs] = useState<string[]>([]);
@@ -44,7 +46,9 @@ export default function Card() {
   };
   useEffect(() => {
     getRandomMovie();
+    
   }, [likedIdxs]);
+  
   return (
     <div>
       {results.length === 0 ? (
