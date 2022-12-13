@@ -26,6 +26,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def default():
+    return {"message": "hi"}
+
 @app.get("/getRandomMovie")
 def getRandomMovie():
     movie_idx = random.choice(list(movie_indices["movie"]))
