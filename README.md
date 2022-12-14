@@ -12,5 +12,5 @@ docker run -p 3000:3000 movies_tinder_client
 ``` 
 cd api 
 docker build -t movies_tinder_api .
-docker run -p 3000:3000 movies_tinder_api
+docker run -p 8000:8000 movies_tinder_api
 ```
